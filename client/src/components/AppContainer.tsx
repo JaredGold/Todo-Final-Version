@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import { colors } from "../variables";
+import styled from 'styled-components';
+import { colors } from '../variables';
 
-const { backgroundColor } = colors;
+const { base } = colors;
 
 export const AppContainer = styled.div`
-  background-color: ${backgroundColor};
+  background-color: ${base};
   height: 100vh;
   width: 100vw;
 `;

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { colors, fontSizes, fontStyles } from '../variables';
 
-const { headingColor } = colors;
+// const { base } = colors;
 const { headingFontSize } = fontSizes;
 const { headerFontStyle } = fontStyles;
 
 export const Header = styled.div`
-  color: ${headingColor};
+  color: white;
   font-size: ${headingFontSize};
   font-family: ${headerFontStyle};
 
@@ -16,5 +16,5 @@ export const Header = styled.div`
   justify-content: center;
   height: 75px;
 
-  background-color: indigo;
+  background-color: #434343;
 `;

@@ -1,20 +1,24 @@
-import TodoForm from "../TodoForm";
-import { ToDo } from "../ToDo";
-import { Todo } from "../../types";
-import { useTodos } from "../../hooks/useTodos";
-import { TodoContainer } from "./TodoContainer";
-import { TodoListStyled } from "./TodoListStyled";
+import TodoForm from '../TodoForm';
+import { ToDo } from '../ToDo';
+import { Todo } from '../../types';
+import { TodoContainer } from './TodoContainer';
+import { TodoListStyled } from './TodoListStyled';
+import { useGetTodos } from '../../hooks/useTodos';
 
 export const TodoList = () => {
-  const { todoState } = useTodos();
+  const { isLoading, error, data } = useGetTodos();
+
+  if (isLoading) return <>'Loading...'</>;
+  if (error) return <>'An error has occurred: </>;
+  const todoData = data;
 
   return (
     <TodoListStyled>
       <TodoForm />
       <TodoContainer>
-        {todoState.map((todo: Todo) =>
-          todo.removed ? null : <ToDo key={todo.id} todo={todo} />
-        )}
+        {todoData.map((todo: Todo) => (
+          <ToDo key={todo.id} todo={todo} />
+        ))}
       </TodoContainer>
     </TodoListStyled>
   );

@@ -1,12 +1,16 @@
-import { Todo } from "../../types";
-import { useTodos } from "../../hooks/useTodos";
-import { RemoveButton } from "./RemoveButton";
-import { TodoWrapper } from "./TodoWrapper";
-import { TodoTitle } from "./TodoTitle";
-import { useState, useCallback } from "react";
-import { IoIosRemoveCircle } from "react-icons/io";
-import { Checkbox } from "./Checkbox";
-import _ from "lodash";
+import { Todo } from '../../types';
+import { RemoveButton } from './RemoveButton';
+import { TodoWrapper } from './TodoWrapper';
+import { TodoTitle } from './TodoTitle';
+import { useState, useCallback } from 'react';
+import { IoIosRemoveCircle } from 'react-icons/io';
+import { Checkbox } from './Checkbox';
+import {
+  useCheckTodo,
+  useDeleteTodo,
+  useUpdateTodo,
+} from '../../hooks/useTodos';
+import _ from 'lodash';
 
 type Props = {
   todo: Todo;
@@ -15,18 +19,25 @@ type Props = {
 export const ToDo = (props: Props) => {
   const { todo } = props;
   const [todoValue, setTodoValue] = useState(todo.title);
-  const { updateChecked, removeTodo, updateTitle } = useTodos();
+
+  const checkMutation = useCheckTodo();
+  const removeMutation = useDeleteTodo();
+  const updateMutation = useUpdateTodo();
 
   const handleChecked = (): void => {
-    updateChecked(todo.id);
+    checkMutation.mutate(todo.id);
   };
 
   const handleRemove = (): void => {
-    removeTodo(todo.id);
+    removeMutation.mutate(todo.id);
   };
 
   const updateTodoTitle = useCallback(
-    _.debounce((title: string) => updateTitle(todo.id, title), 1000),
+    _.debounce(
+      (title: string) =>
+        updateMutation.mutate({ id: todo.id, newTitle: title }),
+      1000
+    ),
     []
   );
 

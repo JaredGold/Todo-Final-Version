@@ -1,5 +1,6 @@
 export const colors = {
-  // backgroundColor: "#CACED1",
+  base: '#121212',
+
   backgroundColor: '#CACED1',
   todoBackgroundColor: '#f4f4f5',
   headingColor: 'snow',

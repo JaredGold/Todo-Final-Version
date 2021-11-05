@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import { useTodos } from "../hooks/useTodos";
-import { TextInput } from "./TextInput";
+import React, { useState } from 'react';
+import { TextInput } from './TextInput';
+import { useAddTodo } from '../hooks/useTodos';
 
 const TodoForm = () => {
-  const [newTodoInput, updateNewTodoInput] = useState("");
-  const { addTodo } = useTodos();
+  const [newTodoInput, updateNewTodoInput] = useState<string>('');
+
+  const mutation = useAddTodo();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (newTodoInput !== "") {
-      addTodo(newTodoInput);
-      updateNewTodoInput("");
+    if (newTodoInput !== '') {
+      mutation.mutate(newTodoInput);
+      updateNewTodoInput('');
     }
   };
 

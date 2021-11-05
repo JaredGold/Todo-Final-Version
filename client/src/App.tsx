@@ -1,18 +1,20 @@
 import { TodoList } from './components/TodoList';
-import { TodosProvider } from './context/TodosProvider';
 import { Header } from './components/Header';
 import { AppContainer } from './components/AppContainer';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const user = 'Jared';
 
+const queryClient = new QueryClient();
+
 const App = () => {
   return (
-    <AppContainer>
-      <Header>{user}'s Todo List</Header>
-      <TodosProvider>
+    <QueryClientProvider client={queryClient}>
+      <AppContainer>
+        <Header>{user}'s Todo List</Header>
         <TodoList />
-      </TodosProvider>
-    </AppContainer>
+      </AppContainer>
+    </QueryClientProvider>
   );
 };
 

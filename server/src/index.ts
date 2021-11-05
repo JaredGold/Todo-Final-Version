@@ -1,16 +1,19 @@
 import express from 'express';
-import bodyParser from 'body-parser';
+import cors from 'cors';
+import todoRoutes from './routes/todoRoutes';
+import { errorHandler } from './handlers/errorHandler';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
-app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true
-  })
-);
+app.use(express.json());
+app.use(cors());
+// if a jwt token is provided do x (private api)
+// if a jwt token is not provided do y (public api)
+// app.use(authMiddleware)
+app.use(todoRoutes);
+app.use(errorHandler);
 
-app.get('/', (req, res) => {
-  res.json({ info: 'Node.js, Express, and Postgres API' });
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
