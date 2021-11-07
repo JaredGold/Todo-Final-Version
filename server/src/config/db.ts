@@ -1,10 +1,9 @@
-const Pool = require('pg').Pool;
-const pool = new Pool({
-    user: 'jared.goldstein',
-    host: 'localhost',
-    database: 'todo-app',
-    password: 'password',
-    port: 5432,
-});
+import { Pool } from 'pg';
 
-module.exports = pool;
+export const db = new Pool({
+  user: 'jared.goldstein',
+  host: 'localhost',
+  database: 'todo-app',
+  password: 'password',
+  port: 5432,
+});

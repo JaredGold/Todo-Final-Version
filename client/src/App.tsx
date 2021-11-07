@@ -2,6 +2,7 @@ import { TodoList } from './components/TodoList';
 import { Header } from './components/Header';
 import { AppContainer } from './components/AppContainer';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { SignUp } from './components/SignUp';
 
 const user = 'Jared';
 
@@ -12,6 +13,8 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AppContainer>
         <Header>{user}'s Todo List</Header>
+        {/* <SignUp /> */}
+        {/* <SignIn /> */}
         <TodoList />
       </AppContainer>
     </QueryClientProvider>

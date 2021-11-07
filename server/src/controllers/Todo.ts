@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-const db = require('../config/db');
+import { db } from '../config/db';
 
 export const getTodos = async (
   _: Request,
@@ -14,6 +14,12 @@ export const getTodos = async (
   }
 };
 
+type Row = {
+  id: number;
+  title: string;
+  completed: boolean;
+};
+
 export const getTodo = async (
   req: Request,
   res: Response,
@@ -21,12 +27,19 @@ export const getTodo = async (
 ) => {
   const { todoId } = req.params;
   try {
-    const results = await db.query(`SELECT * FROM todos WHERE id = ($1)`, [
+    const results = await db.query<Row>(`SELECT * FROM todos WHERE id = ($1)`, [
       todoId,
     ]);
+
+    if (results.rows.length === 0) {
+      res.status(404).json({
+        error: `Todo with id ${todoId} not found`,
+      });
+    }
+
     res.status(200).json({
       result: results.rows[0],
-      next: '/todo',
+      next: '/todo/' + results.rows[0].id,
     });
   } catch (err) {
     next(err);

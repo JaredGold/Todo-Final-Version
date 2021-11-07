@@ -1,64 +1,48 @@
-import "@testing-library/jest-dom";
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import { ToDo } from "../ToDo";
-import { Todo } from "../../types";
-import { TodosProvider } from "../../context/TodosProvider";
+import '@testing-library/jest-dom';
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { ToDo } from '../ToDo';
+import { Todo } from '../../types';
 
-describe("<ToDo />", () => {
-  it("renders an unchecked checkbox when passed an incomplete todo", () => {
+describe('<ToDo />', () => {
+  it('renders an unchecked checkbox when passed an incomplete todo', () => {
     let testTodo: Todo = {
       id: 1,
-      title: "Banana",
+      title: 'Banana',
       checked: false,
-      removed: false
     };
 
-    render(
-      <TodosProvider>
-        <ToDo todo={testTodo} />
-      </TodosProvider>
-    );
+    render(<ToDo todo={testTodo} />);
 
-    const checkbox = screen.getByTestId("todo-checkbox");
+    const checkbox = screen.getByTestId('todo-checkbox');
 
-    expect(checkbox).toHaveProperty("checked", false);
+    expect(checkbox).toHaveProperty('checked', false);
   });
 
-  it("renders a checked checkbox when passed a complete todo", () => {
+  it('renders a checked checkbox when passed a complete todo', () => {
     let testTodo: Todo = {
       id: 1,
-      title: "Banana",
+      title: 'Banana',
       checked: true,
-      removed: false
     };
 
-    render(
-      <TodosProvider>
-        <ToDo todo={testTodo} />
-      </TodosProvider>
-    );
+    render(<ToDo todo={testTodo} />);
 
-    const checkbox = screen.getByTestId("todo-checkbox");
+    const checkbox = screen.getByTestId('todo-checkbox');
 
-    expect(checkbox).toHaveProperty("checked", true);
+    expect(checkbox).toHaveProperty('checked', true);
   });
 
-  it("renders the correct text when passed a title", () => {
+  it('renders the correct text when passed a title', () => {
     let testTodo: Todo = {
       id: 1,
-      title: "Banana",
+      title: 'Banana',
       checked: true,
-      removed: false
     };
 
-    render(
-      <TodosProvider>
-        <ToDo todo={testTodo} />
-      </TodosProvider>
-    );
+    render(<ToDo todo={testTodo} />);
 
-    const title = screen.getByText("Banana");
+    const title = screen.getByText('Banana');
 
     expect(title).toBeInTheDocument();
   });
